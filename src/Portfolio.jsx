@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Code2, Mail, Github, ExternalLink, Twitter } from "lucide-react";
+import profileImg from "./assets/fd1a5f1f-a798-4451-a306-82e20f879cf5.jpeg"
 
  function Portfolio() {
   const [hoveredProject, setHoveredProject] = useState(null);
@@ -44,7 +45,7 @@ import { Code2, Mail, Github, ExternalLink, Twitter } from "lucide-react";
       setVisitorEmail("");
     }
   };
-  
+
   function goToProject(link){
     window.open(link, "_blank");
   }
@@ -59,9 +60,9 @@ import { Code2, Mail, Github, ExternalLink, Twitter } from "lucide-react";
 
           <div className="flex justify-center items-center w-60 h-60 rounded-full mb-4">
           <img
-            src=""
+            src={profileImg}
             alt="Description"
-            className="w-full h-full bg-white object-cover rounded-full shadow-lg"
+            className="w-full h-full  object-cover rounded-full shadow-lg"
           />
         </div>
 

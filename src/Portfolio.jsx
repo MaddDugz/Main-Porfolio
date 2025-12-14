@@ -75,13 +75,13 @@ import profileImg from "./assets/fd1a5f1f-a798-4451-a306-82e20f879cf5.jpeg"
           <div className="flex gap-6">
             <a
               href="#projects"
-              className="px-8 py-2 h-10 bg-white text-black rounded-lg font-semibold hover:bg-gray-200 transition-colors"
+              className=" px-5 md:px-8 py-2 h-10  bg-white text-black rounded-lg font-semibold hover:bg-gray-200 transition-colors"
             >
               View Work
             </a>
             <a
               href="#contact"
-              className="px-8 py-2 h-10  rounded-lg border-2 border-white text-white font-semibold hover:bg-white hover:text-black transition-colors"
+              className=" px-5 md:px-8 py-2 h-10   rounded-lg border-2 border-white text-white font-semibold hover:bg-white hover:text-black transition-colors"
             >
               Get in Touch
             </a>

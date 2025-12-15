@@ -1,10 +1,13 @@
 import { useState } from "react";
 import { Code2, Mail, Github, ExternalLink, Twitter } from "lucide-react";
 import profileImg from "./assets/fd1a5f1f-a798-4451-a306-82e20f879cf5.jpeg"
+import emailjs from "emailjs-com"; //for email submission 
+const serviceId = import.meta.env.VITE_SERVICE_ID
+const TemplateId  = import.meta.env.VITE_TEMPLATE_ID
+const PublicKey = import.meta.env.VITE_PUBLIC_KEY
 
  function Portfolio() {
   const [hoveredProject, setHoveredProject] = useState(null);
-  const [visitorEmail, setVisitorEmail] = useState("");
 
   const projects = [
     {
@@ -37,14 +40,25 @@ import profileImg from "./assets/fd1a5f1f-a798-4451-a306-82e20f879cf5.jpeg"
     "Mysql"
   ];
 
-   const handleEmailSubmit = (e) => {
-    e.preventDefault();
-    if (visitorEmail) {
-      // Open user's email client with pre-filled info
-      window.location.href = `mailto:ezeugwuanthony456@gmail.com.?subject=Let's Connect&body=Hi, I'm reaching out from your portfolio. You can reach me at ${visitorEmail}`;
-      setVisitorEmail("");
-    }
-  };
+  function sendEmail(e) {
+      e.preventDefault();
+
+      emailjs.sendForm(
+          serviceId,     // SERVICE ID
+          TemplateId,    // TEMPLATE ID
+          e.target,
+          PublicKey       // PUBLIC KEY
+      )
+      .then(() => {
+        alert("Message sent!");
+        window.location.reload();
+
+      })
+      .catch((err) => {
+        alert("Failed to send message");
+        console.error(err);
+      });
+  }
 
   function goToProject(link){
     window.open(link, "_blank");
@@ -191,25 +205,48 @@ import profileImg from "./assets/fd1a5f1f-a798-4451-a306-82e20f879cf5.jpeg"
             opportunities.
           </p>
 
-          {/* Email Input Form */}
-          <form onSubmit={handleEmailSubmit} className="max-w-md mx-auto mb-12">
-            <div className="flex gap-2">
+            {/* Contact form */}
+            <div className=" flex items-center mb-4 w-[20rem] md:w-[30rem]  mx-auto rounded-2xl justify-center bg-yellow-200">
+              <form  onSubmit={sendEmail} className="w-full bg-white rounded-2xl shadow-md p-6 ">
+
+              {/* Name input */}
+              <div className="space-y-1">
+              <label className="text-sm font-medium text-gray-600">
+              Name
+              </label>
               <input
-                type="email"
-                value={visitorEmail}
-                onChange={(e) => setVisitorEmail(e.target.value)}
-                placeholder="Enter your email"
-                required
-                className="flex-1 px-4 py-3 bg-black border-2 border-white text-white placeholder-gray-500 font-mono focus:outline-none focus:border-gray-400"
+              type="text"
+              name="name"
+              placeholder="Enter your name"
+              className="w-full rounded-xl border border-gray-300 px-4 py-2 text-black text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
+              </div>
+
+
+              {/* Textbox */}
+              <div className="space-y-1">
+              <label className="text-sm font-medium text-gray-600">
+              Message
+              </label>
+              <textarea
+              rows={4}
+              name="message"
+              placeholder="Write something..."
+              className="w-full rounded-xl border border-gray-300 px-4 py-2 text-black text-sm resize-none focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+              </div>
+
+
+              {/* Submit button */}
               <button
-                type="submit"
-                className="px-6 py-3 bg-white text-black font-semibold font-mono hover:bg-gray-200 transition-colors"
+              type="submit"
+              className="w-full rounded-xl bg-black text-white py-2 text-sm font-medium hover:bg-gray-800 transition"
               >
-                Contact Me
+              Contact Me
               </button>
-            </div>
-          </form>
+              </form>
+              </div>
+
 
           <div className="flex gap-6 justify-center">
             <a

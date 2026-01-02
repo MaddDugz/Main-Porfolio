@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { Code2, Mail, Github, ExternalLink, Twitter } from "lucide-react";
 import profileImg from "./assets/fd1a5f1f-a798-4451-a306-82e20f879cf5.jpeg"
-import emailjs from "emailjs-com"; //for email submission 
+import emailjs from "@emailjs/browser"; //for email submission 
 const serviceId = import.meta.env.VITE_SERVICE_ID
 const TemplateId  = import.meta.env.VITE_TEMPLATE_ID
 const PublicKey = import.meta.env.VITE_PUBLIC_KEY
+import {motion} from "framer-motion"
 
  function Portfolio() {
   const [hoveredProject, setHoveredProject] = useState(null);
@@ -64,11 +65,61 @@ const PublicKey = import.meta.env.VITE_PUBLIC_KEY
     window.open(link, "_blank");
   }
 
+  // for animations
+    const fadeInUp = {
+      hidden: { opacity: 0, y: 80 },      // start invisible and 30px down
+      show: {
+        opacity: 1,
+        y: 0,                              // slide to original position
+        transition: { duration: 1.2, ease: "easeOut" }, // speed & easing
+      },
+      };
+
+    const slideInLeft = {
+      hidden: { opacity: 0, x: -50 },
+      show: {
+        opacity: 1,
+        x: 0,
+        transition: { duration: 3, ease: "easeOut" },
+      },
+    };
+
+    const slideInRight = {
+      hidden: { opacity: 0, x: 50 },
+      show: {
+        opacity: 1,
+        x: 0,
+        transition: { duration: 5, ease: "easeOut" },
+      },
+    };
+
+    // for grid elements
+    const container = {
+      hidden: {},
+      show: {
+        transition: {
+          staggerChildren: 0.15, // delay between child animations
+        },
+      },
+    };
+
+    const item = {
+      hidden: { opacity: 0, y: 20 },
+      show: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+    };
+
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <section className="min-h-screen bg-black text-white flex items-center justify-center px-4 md:px-8">
-        <div className="max-w-4xl w-full">
+      <section className=" min-h-screen bg-black text-white flex items-center justify-center px-4 md:px-8">
+
+        <motion.div 
+          variants={fadeInUp}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true }}
+        className="max-w-4xl w-full">
+
           <div className="mb-6">
           </div>
 
@@ -80,12 +131,12 @@ const PublicKey = import.meta.env.VITE_PUBLIC_KEY
           />
         </div>
 
-          <p className="text-2xl md:text-3xl text-gray-400 mb-8">
+          <motion.p variants={slideInLeft} className="text-2xl md:text-3xl text-gray-400 mb-8">
             Hey I'm Soft a FullStack Developer 
-          </p>
-          <p className="text-lg md:text-xl text-gray-500 max-w-2xl mb-12">
+          </motion.p >
+          <motion.p variants={slideInRight} className="text-lg md:text-xl text-gray-500 max-w-2xl mb-12">
             Bringing your Website ideas to life
-          </p>
+          </motion.p>
           <div className="flex gap-6">
             <a
               href="#projects"
@@ -100,16 +151,24 @@ const PublicKey = import.meta.env.VITE_PUBLIC_KEY
               Get in Touch
             </a>
           </div>
-        </div>
+
+        </motion.div>
       </section>
 
       {/* About Section */}
-      <section className="py-18 px-4 md:px-8 bg-white">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold mb-25 font-mono -rotate-10">
+      <section className="pb-18 px-4 md:px-8 bg-white">
+        <motion.div 
+         variants={fadeInUp}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true}}
+        className="max-w-4xl mx-auto">
+
+          <motion.h2 variants={fadeInUp} className="text-4xl md:text-5xl font-bold mb-30 font-mono -rotate-10">
             About Me
-          </h2>
-          <div className="space-y-6 text-lg text-gray-700">
+          </motion.h2>
+
+          <motion.div variants={slideInLeft} className="space-y-6 text-lg text-gray-700">
             <p>
               My government name is Ezeugwu Anthony I'm a passionate web developer 
               who loves creating logic and making things work
@@ -121,20 +180,27 @@ const PublicKey = import.meta.env.VITE_PUBLIC_KEY
               design decisions. I believe in continuous learning and staying
               up-to-date with the latest industry trends.
             </p>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </section>
 
       {/* Projects Section */}
       <section id="projects" className="py-24 px-4 md:px-8 bg-black text-white">
-        <div className="max-w-6xl mx-auto">
+        <motion.div 
+         variants={fadeInUp}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true}}
+        className="max-w-6xl mx-auto">
+
           <h2 className="text-4xl md:text-5xl font-bold mb-16 font-mono">
                 My projects
           </h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <motion.div  variants={container} className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {projects.map((project) => (
-              <div
+              <motion.div
+                variants={item}
                 key={project.id}
                 className="border-2 border-white p-8 hover:bg-white hover:text-black transition-all duration-300 cursor-pointer"
                 onMouseEnter={() => setHoveredProject(project.id)}
@@ -169,30 +235,38 @@ const PublicKey = import.meta.env.VITE_PUBLIC_KEY
                     </span>
                   ))}
                 </div>
-              </div>
+              </motion.div>
             ))}
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </section>
 
       {/* Skills Section */}
-      <section className="py-24 px-4 md:px-8 bg-white">
+      
+      <motion.section 
+       variants={fadeInUp}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true}}
+      className="py-24 px-4 md:px-8 bg-white">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-4xl md:text-5xl font-bold mb-16 font-mono">
             Skills & Technologies
           </h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+
+          <motion.div variants={container} className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {skills.map((skill, index) => (
-              <div
+              <motion.div
+                variants={item}
                 key={index}
                 className="border-2 border-black p-4 text-center font-mono hover:bg-black hover:text-white transition-colors cursor-default"
               >
                 {skill}
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Contact Section */}
       <section id="contact" className="py-24 px-4 md:px-8 bg-black text-white">
@@ -273,11 +347,12 @@ const PublicKey = import.meta.env.VITE_PUBLIC_KEY
       <footer className="py-8 px-4 bg-white border-t-2 border-black">
         <div className="max-w-6xl mx-auto text-center">
           <p className="font-mono text-sm">
-            © 2025 SoftDev. All rights reserved.
+            © 2026 SoftDev. All rights reserved.
           </p>
         </div>
       </footer>
     </div>
+ 
   );
 }
 

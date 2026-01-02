@@ -29,16 +29,17 @@ import {motion} from "framer-motion"
   ];
 
   const skills = [
-    "JavaScript",
-    "React",
-    "Node.js",
-    "Express",
-    "PHP",
     "HTML/CSS",
     "Tailwind CSS",
-    "Git",
+    "JavaScript",
+    "React",
+    "PHP",
+    "Node.js",
+    "Express.js",
     "MongoDB",
-    "Mysql"
+    "Mysql",
+    "JWT",
+    "Git",
   ];
 
   function sendEmail(e) {
